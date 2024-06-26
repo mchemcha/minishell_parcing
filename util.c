@@ -6,13 +6,21 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:43:42 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/06/21 16:41:15 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/06/26 21:05:15 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
 
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
 
 size_t	ft_strlen( char *str)
 {
@@ -153,4 +161,29 @@ char	**ft_split(char *s, char c)
 			return (erreur(tab));
 	}
 	return (tab);
+}
+
+char	*ft_substr2(char *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	char	*ss;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (start >= ft_strlen(s))
+		return (ft_strdup(""));
+	if (len >= ft_strlen(&s[start]))
+		len = ft_strlen(&s[start]);
+	ss = malloc((len + 1) * sizeof(char));
+	if (!ss)
+		return (NULL);
+	while (i < len)
+	{
+		ss[i] = s[start];
+		i++;
+		start++;
+	}
+	ss[i] = 0;
+	return (ss);
 }

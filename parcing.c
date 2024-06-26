@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 19:21:52 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/06/25 16:17:48 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/06/26 21:22:50 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,59 @@ void	check_error(t_token *list)
 		list = list->next;
 	}
 }
+
+int expend_check(char *str)
+{
+	int i = 0;
+	
+	if((str[1] >= 'a' && str[1] <='z') || (str[1] >= 'A' && str[1] <='Z') || str[1] == '_')
+		return(1);
+	while(str[i])
+		i++;
+	if((str[1] >= 'a' && str[1] <='z') || (str[1] >= 'A' && str[1] <='Z') || str[1] == '_' || (str[i] >= '0' && str[i] <= '9'))
+		return(1);
+	return(0);
+
+}
+
+void doubl_quotexpand(t_token *list, t_env *env)
+{
+	char *str;
+	int i = 1;
+	char *s[1000];
+	
+	while(list)
+	{
+		if(list->type == Doubl_QUOTE || list->type == WORD)
+		{
+			str = list->str;
+			if(list->type == Doubl_QUOTE)
+			{
+				while(str[i] != '\"')
+				{
+					str[i] *= (-1);
+					i++;
+				}
+			}
+			expend(str, env, s);
+		}
+		list = list->next;
+	}
+}
+// void expend(char *str, t_env *env, char *s)
+// {
+// 	int i = 0;
+
+// 	while(str[i])
+// 	{
+// 		if(str[i] == '$')
+// 		{
+// 			i++;
+// 			get_env(env, str);
+// 		}
+// 	}
+// }
+
 void parcing_check(char *read_line)
 {
 	char *str;
@@ -188,7 +241,9 @@ void parcing_check(char *read_line)
 		tokenazer_line(tab[i], &list);
 		i++;
 	}
-	// print_stack(list);
 	check_error(list);
+	print_stack(list);
+	doubl_quotexpand(list);
+	print_stack(list);
 	list = NULL;
 }

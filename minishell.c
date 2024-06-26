@@ -6,18 +6,21 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 19:12:59 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/06/24 14:20:43 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/06/26 21:06:15 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int ac, char **av)
+int main(int ac, char **av,char **env)
 {
 	char	*read_line;
 	
 	(void)ac;
 	(void)av;
+	t_env	*bult;
+	
+	eeeenv(&bult, env);
 	while(1)
 	{
 		read_line = readline("minishell: ");
