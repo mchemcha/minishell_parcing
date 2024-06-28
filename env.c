@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 20:11:16 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/06/26 21:05:48 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:00:18 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ void	add_back_env(t_env **head, t_env *new)
 		(*head) = new;
 		return ;
 	}
-		while (node->next)
-			node = node->next;
-		node->next = new;
+	while (node->next)
+		node = node->next;
+	node->next = new;
 }
+
+
 
 t_env	*lst_new_env1(char *str ,char *s)
 {
@@ -65,7 +67,7 @@ void	eeeenv(t_env **head, char **env)
 		if (y != -1)
 		{
 			k  = ft_substr2(env[i], 0, y);
-			v = ft_substr2(env[i], 0, ft_strlen(env[i]) - y - 1);
+			v = ft_substr2(env[i], y + 1, ft_strlen(env[i]));
 		}
 		else
 		{

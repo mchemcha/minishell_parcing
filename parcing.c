@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 19:21:52 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/06/26 21:22:50 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:59:07 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,60 +170,99 @@ void	check_error(t_token *list)
 		list = list->next;
 	}
 }
-
-int expend_check(char *str)
+void	remove_double_quotes(char *str) 
 {
-	int i = 0;
-	
-	if((str[1] >= 'a' && str[1] <='z') || (str[1] >= 'A' && str[1] <='Z') || str[1] == '_')
-		return(1);
-	while(str[i])
-		i++;
-	if((str[1] >= 'a' && str[1] <='z') || (str[1] >= 'A' && str[1] <='Z') || str[1] == '_' || (str[i] >= '0' && str[i] <= '9'))
-		return(1);
-	return(0);
-
+    char *src = str;
+    char *dst = str;
+    while (*src) {
+        if (*src != '"') {
+            *dst++ = *src;
+        }
+        src++;
+    }
+    *dst = '\0';
 }
 
 void doubl_quotexpand(t_token *list, t_env *env)
 {
-	char *str;
-	int i = 1;
-	char *s[1000];
+	int i = 0;
+	(void)env;
 	
 	while(list)
 	{
 		if(list->type == Doubl_QUOTE || list->type == WORD)
 		{
-			str = list->str;
 			if(list->type == Doubl_QUOTE)
 			{
-				while(str[i] != '\"')
+				i++;
+				while(list->str[i] != '\"')
 				{
-					str[i] *= (-1);
+					list->str[i] *= (-1);
 					i++;
 				}
+				remove_double_quotes(list->str);
 			}
-			expend(str, env, s);
 		}
 		list = list->next;
 	}
 }
-// void expend(char *str, t_env *env, char *s)
-// {
-// 	int i = 0;
+void	expend_list(t_token *list, t_env *env)
+{
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	int e = 0;
+	char *str = NULL;
+	char *valeur = NULL;
+	char s[1000];
+	char buff[1000];
+	while (list)
+	{
+		if(list->type == Doubl_QUOTE)
+		{
+			str = list->str;
+			while(str[i])
+			{
+				if(str[i] == '$')
+				{
+					i++;
+					while(str[i] && ((str[i] >= 'A' && str[i] <= 'Z' ) || (str[i] >= 'a' && str[i] <= 'z' ) || (str[i] >= '0' && str[i] <= '9') || str[i] == '_'))
+					{
+						s[k] = str[i];
+						i++;
+						k++;
+					}
+					
+					s[k] = '\0';
+					valeur = get_env(env,strdup(s));
+					printf("\n=%s==\n",valeur);
+					while(valeur && valeur[e])
+					{
+						puts("her");
+						buff[j] = valeur[e];
+						e++;
+						j++;
+					}
+					free(valeur);
+				}
+				else
+				{
+					buff[j] = str[i];
+					i++;
+					j++;
+				}
+			}
+			buff[j] = '\0';
+			list->str = strdup(buff);
+			free(str);
+		}
+		list = list->next;
+	} 
+}
 
-// 	while(str[i])
-// 	{
-// 		if(str[i] == '$')
-// 		{
-// 			i++;
-// 			get_env(env, str);
-// 		}
-// 	}
-// }
 
-void parcing_check(char *read_line)
+
+void parcing_check(char *read_line,t_env *env)
 {
 	char *str;
 	char **tab;
@@ -242,8 +281,10 @@ void parcing_check(char *read_line)
 		i++;
 	}
 	check_error(list);
+	doubl_quotexpand(list,env);
 	print_stack(list);
-	doubl_quotexpand(list);
+	expend_list(list,env);
+	puts("------>\n");
 	print_stack(list);
 	list = NULL;
 }

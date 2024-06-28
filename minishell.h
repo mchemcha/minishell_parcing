@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 19:13:12 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/06/26 21:05:27 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/06/27 20:16:01 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		double_quot_error(const char *str);
 int		pip_syntax(char *str);
 void	syntax_error(char *str,char *read_line);
 char	*space(char *str);
-void	parcing_check(char *str);
+void 	parcing_check(char *read_line,t_env *env);
 char	*ft_strdup( char *s1);
 int		ft_strncmp( char *s1,  char *s2, size_t n);
 size_t	ft_strlen( char *str);
@@ -78,12 +78,12 @@ void	print_stack2(t_env *list);
 t_token	*ft_lstnew(int type,char *str );
 t_token	*ft_lstlast(t_token *lst);
 void	ft_lstadd_back(t_token **lst, t_token *newlst);
-int	check_egal(char *str);
+int		check_egal(char *str);
 void	add_back_env(t_env **head, t_env *new);
 t_env	*lst_new_env1(char *str ,char *s);
 void	eeeenv(t_env **head, char **env);
-char *get_env(t_env *obj,char *str);
-int	ft_strcmp(char *s1, char *s2);
+char 	*get_env(t_env *obj,char *str);
+int		ft_strcmp(char *s1, char *s2);
 char	*ft_substr2(char *s, unsigned int start, size_t len);
 
 #endif
