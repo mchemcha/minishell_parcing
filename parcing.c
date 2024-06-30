@@ -190,7 +190,7 @@ void doubl_quotexpand(t_token *list, t_env *env)
 	
 	while(list)
 	{
-		if(list->type == Doubl_QUOTE || list->type == WORD)
+		if(list->type == Doubl_QUOTE)
 		{
 			if(list->type == Doubl_QUOTE)
 			{
@@ -208,25 +208,33 @@ void doubl_quotexpand(t_token *list, t_env *env)
 }
 void	expend_list(t_token *list, t_env *env)
 {
-	int i = 0;
-	int j = 0;
-	int k = 0;
-	int e = 0;
+	int i;
+	int j;
+	int k;
+	int e;
 	char *str = NULL;
 	char *valeur = NULL;
 	char s[1000];
 	char buff[1000];
 	while (list)
 	{
-		if(list->type == Doubl_QUOTE)
+		i = 0;
+		j = 0;
+		k = 0;
+		e = 0;
+		if(list->type == Doubl_QUOTE || list->type == WORD || list->type == SIGN)
 		{
 			str = list->str;
 			while(str[i])
 			{
+				printf("___%c______\n", str[i]);
 				if(str[i] == '$')
 				{
+					puts("imher\n");
 					i++;
-					while(str[i] && ((str[i] >= 'A' && str[i] <= 'Z' ) || (str[i] >= 'a' && str[i] <= 'z' ) || (str[i] >= '0' && str[i] <= '9') || str[i] == '_'))
+					while(str[i] && 
+						((str[i] >= 'A' && str[i] <= 'Z' ) || (str[i] >= 'a' && str[i] <= 'z' ) || 
+							(str[i] >= '0' && str[i] <= '9') || str[i] == '_' || str[i] != ' '))
 					{
 						s[k] = str[i];
 						i++;
@@ -235,10 +243,8 @@ void	expend_list(t_token *list, t_env *env)
 					
 					s[k] = '\0';
 					valeur = get_env(env,strdup(s));
-					printf("\n=%s==\n",valeur);
 					while(valeur && valeur[e])
 					{
-						puts("her");
 						buff[j] = valeur[e];
 						e++;
 						j++;
