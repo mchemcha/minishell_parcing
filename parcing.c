@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-aada <sel-aada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 19:21:52 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/06/28 19:59:07 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:43:29 by sel-aada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,14 +242,17 @@ void	expend_list(t_token *list, t_env *env)
 					}
 					
 					s[k] = '\0';
-					valeur = get_env(env,strdup(s));
+					char *s2 = ft_strdup(s);
+					valeur = get_env(env,s2);
+					printf("|%s|\n",valeur);
 					while(valeur && valeur[e])
 					{
 						buff[j] = valeur[e];
 						e++;
 						j++;
 					}
-					free(valeur);
+					free(s2);
+					valeur = NULL;
 				}
 				else
 				{

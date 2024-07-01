@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-aada <sel-aada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 20:11:16 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/06/27 18:00:18 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:36:52 by sel-aada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,12 @@ void	eeeenv(t_env **head, char **env)
 }
 char *get_env(t_env *obj,char *str)
 {	
-	while (obj)
+	t_env *tmp = obj;
+	while (tmp)
 	{
-		if (ft_strcmp(obj->key, str) == 0)
-			return(obj->value);
-		obj = obj->next;
+		if (ft_strcmp(tmp->key, str) == 0)
+			return(tmp->value);
+		tmp = tmp->next;
 	}
 	return(NULL);
 }
