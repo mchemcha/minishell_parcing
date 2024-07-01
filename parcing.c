@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parcing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-aada <sel-aada@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 19:21:52 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/01 15:43:29 by sel-aada         ###   ########.fr       */
+/*   Updated: 2024/07/01 21:37:31 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,24 +227,22 @@ void	expend_list(t_token *list, t_env *env)
 			str = list->str;
 			while(str[i])
 			{
-				printf("___%c______\n", str[i]);
+				k = 0;
+				e = 0;
 				if(str[i] == '$')
 				{
-					puts("imher\n");
 					i++;
 					while(str[i] && 
 						((str[i] >= 'A' && str[i] <= 'Z' ) || (str[i] >= 'a' && str[i] <= 'z' ) || 
-							(str[i] >= '0' && str[i] <= '9') || str[i] == '_' || str[i] != ' '))
+							(str[i] >= '0' && str[i] <= '9') || str[i] == '_' || str[i] != ' ' ) && str[i] != '$')
 					{
 						s[k] = str[i];
 						i++;
 						k++;
 					}
-					
 					s[k] = '\0';
 					char *s2 = ft_strdup(s);
 					valeur = get_env(env,s2);
-					printf("|%s|\n",valeur);
 					while(valeur && valeur[e])
 					{
 						buff[j] = valeur[e];
@@ -252,6 +250,7 @@ void	expend_list(t_token *list, t_env *env)
 						j++;
 					}
 					free(s2);
+					s2 = NULL;
 					valeur = NULL;
 				}
 				else
@@ -263,7 +262,6 @@ void	expend_list(t_token *list, t_env *env)
 			}
 			buff[j] = '\0';
 			list->str = strdup(buff);
-			free(str);
 		}
 		list = list->next;
 	} 
@@ -282,7 +280,6 @@ void parcing_check(char *read_line,t_env *env)
 	double_quot_error(read_line);
 	betwen_quote(&read_line);
 	str = space(read_line);
-	// printf("{%s}\n", str);
 	tab = ft_split(str, ' ');
 	while (tab[i])
 	{
