@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:50:28 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/06/28 16:13:26 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:07:39 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,7 @@ t_token	*ft_lstnew(int type,char *str )
 	list -> next = NULL;
 	return (list);
 }
-// t_env	*lst_new_env1(char *str ,char *s)
-// {
-// 	t_env	*new;
-	
-// 	new = malloc(sizeof(t_env));
-// 	if (!new)
-// 		return (NULL);
-// 	new->key = str;
-// 	new->value = s;
-// 	new->next = NULL;
-// 	return (new);
-// }
+
 t_token	*ft_lstlast(t_token *lst)
 {
 	t_token	*p;
@@ -47,18 +36,6 @@ t_token	*ft_lstlast(t_token *lst)
 	}
 	return (p);
 }
-// t_env	*ft_lstlast_env(t_env *lst)
-// {
-// 	t_env	*p;
-
-// 	p = lst ;
-// 	while (p != NULL && p -> next != NULL)
-// 	{
-// 		p = p -> next;
-// 	}
-// 	return (p);
-// }
-
 
 void	ft_lstadd_back(t_token **lst, t_token *newlst)
 {
@@ -73,22 +50,7 @@ void	ft_lstadd_back(t_token **lst, t_token *newlst)
 		p = ft_lstlast(*lst);
 		p -> next = newlst;
 	}
- }
-// void	add_back_env(t_env **lst, t_env *newlst)
-// {
-// 	t_env	*p;
-
-// 	if (lst == NULL || newlst == NULL)
-// 		return ;
-// 	if (*lst == NULL)
-// 		*lst = newlst;
-// 	else
-// 	{
-// 		p = ft_lstlast_env(*lst);
-// 		p -> next = newlst;
-// 	}
-// }
-
+}
 void print_stack(t_token *list)
 {
     while(list != NULL)
@@ -106,6 +68,35 @@ void print_stack2(t_env *list)
     	printf("%s==>%s;\n", list->key, list->value);
     	list = list->next;
     }
+}
+
+
+void singlle(char *str,t_token **head)
+{
+	head = NULL;
+
+    char *start = str;
+    char *end;
+    while (*start != '\0') {
+        if (*start == '"' || *start == '\'') {
+            char quote = *start;
+            start++;
+            end = strchr(start, quote);
+            if (end != NULL) 
+			{
+                char word[50];
+                int len = end - start + 2;
+                strncpy(word, start - 1, len);
+                word[len] = '\0';
+				ft_lstadd_back(head, ft_lstnew(Doubl_QUOTE,word));
+                start = end + 1;
+            } else {
+                break;
+            }
+        } else {
+            start++;
+        }
+	}
 }
 
 void tokenazer_line(char *str, t_token **list)
@@ -126,6 +117,7 @@ void tokenazer_line(char *str, t_token **list)
     else if(str[i] == '$')
 		ft_lstadd_back(list, ft_lstnew(SIGN,str));
     else if(str[i] == '\'')
+		// singlle(str,list);
 		ft_lstadd_back(list, ft_lstnew(Singl_QUOTE,str));
     else if(str[i] == '\"')
 		ft_lstadd_back(list, ft_lstnew(Doubl_QUOTE,str));

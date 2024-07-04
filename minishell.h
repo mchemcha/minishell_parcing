@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 19:13:12 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/06/27 20:16:01 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:23:57 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct s_env
 void	betwen_quote(char **str);
 int		double_quot_error(const char *str);
 int		pip_syntax(char *str);
-void	syntax_error(char *str,char *read_line);
 char	*space(char *str);
 void 	parcing_check(char *read_line,t_env *env);
 char	*ft_strdup( char *s1);
@@ -85,5 +84,13 @@ void	eeeenv(t_env **head, char **env);
 char 	*get_env(t_env *obj,char *str);
 int		ft_strcmp(char *s1, char *s2);
 char	*ft_substr2(char *s, unsigned int start, size_t len);
+
+void	remove_double_quotes(char *str);
+void	doubl_quotexpand(t_token *list, t_env *env);
+void	expend_list(t_token *list, t_env *env);
+
+void	remove_singl_quotes(char *str);
+void 	singl_quotexpand(t_token *list);
+void	singel_quote(t_token *list);
 
 #endif
