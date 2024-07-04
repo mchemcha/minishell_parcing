@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:32:10 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/03 18:41:26 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:22:40 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,23 @@ void	remove_singl_quotes(char *str)
 void doubl_quotexpand(t_token *list, t_env *env)
 {
 	int i = 0;
+	char *str;
 	(void)env;
 	
-	while(list)
+	while(list && list->next)
 	{
+		str = list->str;
 		if(list->type == Doubl_QUOTE)
 		{
 			if(list->type == Doubl_QUOTE)
 			{
 				i++;
-				while(list->str[i] != '\"')
+				while(str[i] && str[i] != '\"')
 				{
-					list->str[i] *= (-1);
+					str[i] *= (-1);
 					i++;
 				}
-				remove_double_quotes(list->str);
+				remove_double_quotes(str);
 			}
 		}
 		list = list->next;
@@ -64,7 +66,7 @@ void singl_quotexpand(t_token *list)
 {
 	int i = 0;
 	
-	while(list)
+	while(list && list->next)
 	{
 		if(list->type == Singl_QUOTE)
 		{
@@ -73,7 +75,6 @@ void singl_quotexpand(t_token *list)
 				i++;
 				while(list->str[i] != '\'')
 				{
-					puts("je suis entres\n");
 					list->str[i] *= (-1);
 					i++;
 				}
@@ -120,7 +121,6 @@ void	expend_list(t_token *list, t_env *env)
 						((str[i] >= 'A' && str[i] <= 'Z' ) || (str[i] >= 'a' && str[i] <= 'z' ) || 
 							(str[i] >= '0' && str[i] <= '9') || str[i] == '_' || str[i] != ' ' ) && str[i] != '$' && str[i] != '\'' )
 					{
-						printf("%c\n", str[i]);
 						s[k] = str[i];
 						i++;
 						k++;

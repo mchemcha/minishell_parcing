@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:50:28 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/04 18:07:39 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:11:07 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,33 +71,6 @@ void print_stack2(t_env *list)
 }
 
 
-void singlle(char *str,t_token **head)
-{
-	head = NULL;
-
-    char *start = str;
-    char *end;
-    while (*start != '\0') {
-        if (*start == '"' || *start == '\'') {
-            char quote = *start;
-            start++;
-            end = strchr(start, quote);
-            if (end != NULL) 
-			{
-                char word[50];
-                int len = end - start + 2;
-                strncpy(word, start - 1, len);
-                word[len] = '\0';
-				ft_lstadd_back(head, ft_lstnew(Doubl_QUOTE,word));
-                start = end + 1;
-            } else {
-                break;
-            }
-        } else {
-            start++;
-        }
-	}
-}
 
 void tokenazer_line(char *str, t_token **list)
 {

@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 19:21:52 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/04 18:38:14 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:55:06 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,6 @@ int	pip_syntax(char *str)
 	return (1);
 }
 
-// void	syntax_error(char *str, char *read_line)
-// {
-// 	if (!ft_strncmp(read_line, str, 4))
-// 	{
-// 		printf("%s\n", str);
-// 		exit(0);
-// 	}
-// }
 
 char	*space(char *str)
 {
@@ -207,9 +199,8 @@ void parcing_check(char *read_line,t_env *env)
 	add_history(read_line);
 	if(double_quot_error(read_line) != 0)
 		return;
+	betwen_quote(&read_line);
 	str = space(read_line);
-	printf("===========>|%s|\n", str);
-	// betwen_quote(&read_line);
 	tab = ft_split(str, ' ');
 	while (tab[i])
 	{
