@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 19:13:12 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/03 18:23:57 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:24:23 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum s_type
 	Doubl_QUOTE = 11//
 
 } t_type;
+
 typedef struct s_token {
 	int				type;
 	char			*str;
@@ -96,5 +97,7 @@ void	singel_quote(t_token *list);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
+
+void comds_tabl(t_token *token,char ***tab);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:32:10 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/04 21:22:40 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/05 17:12:33 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,12 @@ void	expend_list(t_token *list, t_env *env)
 			{
 				k = 0;
 				e = 0;
-				if(str[i] == '$')
+				if(str[i] == '$' && str[i+1] != '\0')
 				{
 					i++;
 					if(str[i] == '$')	
 						return;
-					while(str[i] && (ft_isalnum((int)str[i]) || str[i] == '_' ))//&& str[i] != '$' && str[i] != '\'') || str[i] != ' ' )
+					while(str[i] && (ft_isalnum((int)str[i]) || str[i] == '_' ))
 					{
 						s[k] = str[i];
 						i++;

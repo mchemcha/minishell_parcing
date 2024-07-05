@@ -6,7 +6,7 @@
 #    By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/08 19:12:17 by mchemcha          #+#    #+#              #
-#    Updated: 2024/07/03 17:47:10 by mchemcha         ###   ########.fr        #
+#    Updated: 2024/07/05 17:16:10 by mchemcha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
-SRC = minishell.c  util.c linked_list.c parcing.c env.c expand.c
+SRC = minishell.c  util.c linked_list.c parcing.c env.c expand.c finel.c
 
 OBJ = $(SRC:.c=.o)
 

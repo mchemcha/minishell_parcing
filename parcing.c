@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 19:21:52 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/04 19:55:06 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:50:09 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,8 @@ void parcing_check(char *read_line,t_env *env)
 {
 	char *str;
 	char **tab;
+	char **tabls;
+    int e = 0;
 	int i;
 	t_token *list = NULL;
 	i = 0;
@@ -218,5 +220,11 @@ void parcing_check(char *read_line,t_env *env)
 	singel_quote(list);
 	puts("------>\n");
 	print_stack(list);
+	comds_tabl(list,&tabls);
+	while(tabls[e] && tabls)
+	{
+		printf(">%s\n",tabls[e]);
+		e++;
+	}
 	list = NULL;
 }
