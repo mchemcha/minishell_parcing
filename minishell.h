@@ -93,4 +93,8 @@ void	remove_singl_quotes(char *str);
 void 	singl_quotexpand(t_token *list);
 void	singel_quote(t_token *list);
 
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+int		ft_isalnum(int c);
+
 #endif

@@ -37,20 +37,50 @@ void	remove_singl_quotes(char *str)
     *dst = '\0';
 }
 
+// void doubl_quotexpand(t_token *list, t_env *env)
+// {
+// 	int i ;
+//     (void)env;
+
+//     while (list)
+//     {
+//         char *str = list->str;
+//         if (list->type == Doubl_QUOTE)
+//         {
+//             i = 0;
+
+//             if (str[i] == '\"')
+//             {
+//                 i++;
+//                 while (str[i] && str[i] != '\"')
+//                 {
+//                     str[i] *= (-1);
+//                     i++;
+//                 }
+//                 if (str[i] == '\"')
+//                 {
+//                     remove_double_quotes(str);
+//                 }
+//             }
+//         }
+//         list = list->next;
+//     }
+// }
+
 void doubl_quotexpand(t_token *list, t_env *env)
 {
 	int i = 0;
 	char *str;
 	(void)env;
 	
-	while(list && list->next)
+	while(list)
 	{
 		str = list->str;
-		if(list->type == Doubl_QUOTE)
-		{
 			if(list->type == Doubl_QUOTE)
 			{
-				i++;
+				i = 0;
+				if(str[i] == '\"')
+					i++;
 				while(str[i] && str[i] != '\"')
 				{
 					str[i] *= (-1);
@@ -58,29 +88,30 @@ void doubl_quotexpand(t_token *list, t_env *env)
 				}
 				remove_double_quotes(str);
 			}
-		}
 		list = list->next;
 	}
 }
+
 void singl_quotexpand(t_token *list)
 {
 	int i = 0;
+	char *str;
 	
-	while(list && list->next)
+	while(list)
 	{
-		if(list->type == Singl_QUOTE)
-		{
+		str = list->str;
 			if(list->type == Singl_QUOTE)
 			{
-				i++;
-				while(list->str[i] != '\'')
+				i = 0;
+				if(str[i] == '\'')
+					i++;
+				while(str[i] && str[i] != '\'')
 				{
-					list->str[i] *= (-1);
+					str[i] *= (-1);
 					i++;
 				}
-				remove_singl_quotes(list->str);
+				remove_singl_quotes(str);
 			}
-		}
 		list = list->next;
 	}
 }
@@ -112,18 +143,15 @@ void	expend_list(t_token *list, t_env *env)
 				if(str[i] == '$')
 				{
 					i++;
-					if(str[i] == '$')
-					{
-						puts("ppp\n");	
+					if(str[i] == '$')	
 						return;
-					}
-					while(str[i] && 
-						((str[i] >= 'A' && str[i] <= 'Z' ) || (str[i] >= 'a' && str[i] <= 'z' ) || 
-							(str[i] >= '0' && str[i] <= '9') || str[i] == '_' || str[i] != ' ' ) && str[i] != '$' && str[i] != '\'' )
+					while(str[i] && (ft_isalnum((int)str[i]) || str[i] == '_' ))//&& str[i] != '$' && str[i] != '\'') || str[i] != ' ' )
 					{
 						s[k] = str[i];
 						i++;
 						k++;
+						if(!(ft_isalnum((int)str[i]) || str[i] == '_'))
+							break;
 					}
 					s[k] = '\0';
 					char *s2 = ft_strdup(s);

@@ -139,7 +139,8 @@ char	*space(char *str)
 				i++;
 			}
 			s[j] = str[i];
-			s[j+1] = ' ';
+			j++;
+			s[j] = ' ';
 			j++;
 		}
 		else if( str[i] == '\'')
@@ -156,7 +157,8 @@ char	*space(char *str)
 				i++;
 			}
 			s[j] = str[i];
-			s[j+1] = ' ';
+			j++;
+			s[j] = ' ';
 			j++;
 		}
 		else

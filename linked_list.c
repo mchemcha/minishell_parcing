@@ -90,7 +90,6 @@ void tokenazer_line(char *str, t_token **list)
     else if(str[i] == '$')
 		ft_lstadd_back(list, ft_lstnew(SIGN,str));
     else if(str[i] == '\'')
-		// singlle(str,list);
 		ft_lstadd_back(list, ft_lstnew(Singl_QUOTE,str));
     else if(str[i] == '\"')
 		ft_lstadd_back(list, ft_lstnew(Doubl_QUOTE,str));

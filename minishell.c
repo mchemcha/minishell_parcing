@@ -23,7 +23,7 @@ int main(int ac, char **av,char **env)
 	eeeenv(&bult, env);
 	while(1)
 	{
-		read_line = readline("minishell: ");
+		read_line = readline("minishell:");
 		if (!read_line)
 		{
 			printf("\n");
