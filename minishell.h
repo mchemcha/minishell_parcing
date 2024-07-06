@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 19:13:12 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/05 20:24:23 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/06 19:11:22 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_list
 	char			**cmds;
 	int				infile;
 	int				outfile;
+	
 	struct s_list	*next;
 }	t_list;
 
@@ -98,6 +99,9 @@ int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 
-void comds_tabl(t_token *token,char ***tab);
-
+void 	comds_tabl(t_token *token,char ***tab);
+int		cont_word_list(t_token *list);
+char 	**split_linked(t_token *list);
+void	ft_strcpy(char *dst, const char *src);
+t_list	*split_liked_pip(t_token *list);
 #endif
