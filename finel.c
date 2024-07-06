@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:16:14 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/06 19:11:55 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/06 20:53:07 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_list	*ft_lstnew_list(int infile,int outfile,char **str)
 		return (NULL);
 	list->infile = infile;
 	list->outfile = outfile;
-    list->str = str;
+    list->cmds = str;
 	list->next = NULL;
 	return (list);
 }
@@ -32,30 +32,53 @@ t_list	*ft_lstlast_list(t_list *lst)
 
 	p = lst ;
 	while (p != NULL && p -> next != NULL)
-	{
 		p = p -> next;
-	}
 	return (p);
 }
 
-void	ft_lstadd_back_list(t_list **lst, t_list *newlst)
-{
-	t_list	*p;
+// void	ft_lstadd_back_list(t_list **lst, t_list *newlst)
+// {
+// 	t_list	*p;
 
-	if (lst == NULL || newlst == NULL)
-		return ;
-	if (*lst == NULL)
-		*lst = newlst;
-	else
+// 	if (lst == NULL || newlst == NULL)
+// 		return ;
+// 	if (*lst == NULL)
+// 		*lst = newlst;
+// 	else
+// 	{
+// 		p = ft_lstlast_list(*lst);
+// 		p -> next = newlst;
+// 	}
+// }
+
+void ft_lstadd_back_list(t_list **head, t_list *newlst) {
+    t_list *node;
+
+    if (newlst == NULL) {
+        return; 
+    }
+
+    
+    if (*head == NULL) {
+        *head = newlst;
+        newlst->next = NULL;
+    } 
+	else 
 	{
-		p = ft_lstlast(*lst);
-		p -> next = newlst;
-	}
+        node = *head;
+        while (node->next != NULL) 
+		{
+            node = node->next;         
+        }
+        node->next = newlst;
+        newlst->next = NULL;
+    }
 }
-void print_list(t_list *list)
+
+void print_list_cmd(t_list *list)
 {
     t_list *str = list;
-    printf("------------\n")
+    printf("------------\n");
     while (str != NULL)
     {
         printf("cmds: ");
@@ -72,23 +95,6 @@ void print_list(t_list *list)
         str = str->next;
     }
 }
-
-void del(void *content)
-{
-	free(content);
-}
-
-// void	ft_lstdelone(t_list *lst, void (*del)(void*))
-// {
-// 	if (lst == NULL)
-// 		return ;
-// 	if (del != NULL)
-// 	{
-// 		if (lst->content != NULL)
-// 			del(lst->content);
-// 	}
-// 	free (lst);
-// }
 
 int ft_lstsize(t_list *lst)
 {
@@ -126,49 +132,6 @@ int cont_word_list(t_token *list)
 	return cont;
 }
 
-char **split_linked_pip(t_token *list)
-{
-	char **tab[400];
-	int i, k, j;
-
-	if (list == NULL)
-		return (NULL);
-
-	int num_words = cont_word_list(list);
-
-	tab = (char **)calloc(num_words + 1, sizeof(char *));
-	if (tab == NULL)
-		return (NULL);
-
-	i = 0;
-	j = 0;
-	while (list)
-	{
-		while (list && list->type == PIPE)
-			list = list->next;
-
-		if (list && list->str)
-		{
-			
-			tab[i] = ft_strdup(list->str);
-			if (tab[i] == NULL)
-			{
-				k = 0;
-				while (k < i)
-					free(tab[k++]);
-				free(tab);
-				return (NULL);
-			}
-			i++;
-		}
-		if (list)
-			list = list->next;
-	}
-
-	tab[i] = NULL;
-
-	return tab;
-}
 
 static int ft_arrylen(char **str) {
     int i = 0;
@@ -204,27 +167,29 @@ char **ft_arrydup(char **s1) {
     return str;
 }
 
-t_list	*split_liked_pip(t_token *list)
+t_list *split_liked_pip(t_token *list)
 {
-	t_list *list_cmd;
-	
-	
-	while(list)
-	{
-		char *cmd[1000];
-		int i = 0;
-		int infile = -2;
-		int outfile = -2;
-		while(list && list->type != PIPE && list->str)
-		{
-			cmd[i] = list->str;
-			i++;
-		}
-		cmd[i] = '\0';
-		ft_lstadd_back_list(&list_cmd,ft_lstnew_list(infile,outfile,ft_arrydup(cmd)));
-		list = list->next;
-	}
-	list_cmd = NULL;
-	return(list_cmd);
-	
+    t_list *list_cmd = NULL;
+    
+    while (list )
+    {
+        char *cmd[1000];
+        int i = 0;
+        int infile = -2;
+        int outfile = -2;
+        
+        while (list && list->type != PIPE && list->str)
+        {
+            cmd[i] = ft_strdup(list->str);
+            i++;
+            list = list->next;                                              
+        }
+        cmd[i] = NULL;
+        t_list *new_node = ft_lstnew_list(infile, outfile, ft_arrydup(cmd));
+        ft_lstadd_back_list(&list_cmd, new_node);
+        if (!list)
+			break;
+    	list = list->next;
+    }
+    return list_cmd;
 }

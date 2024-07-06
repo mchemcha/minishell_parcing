@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 19:13:12 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/06 19:11:22 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/06 19:41:58 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ int		ft_isalnum(int c);
 void 	comds_tabl(t_token *token,char ***tab);
 int		cont_word_list(t_token *list);
 char 	**split_linked(t_token *list);
-void	ft_strcpy(char *dst, const char *src);
 t_list	*split_liked_pip(t_token *list);
+void 	print_list_cmd(t_list *list);
 #endif

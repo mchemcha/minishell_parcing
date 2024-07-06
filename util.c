@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:43:42 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/06 18:35:30 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/06 19:38:50 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,18 +207,4 @@ char	*ft_substr2(char *s, unsigned int start, size_t len)
 	}
 	ss[i] = 0;
 	return (ss);
-}
-
-void	ft_strcpy(char *dst, t_token *list)
-{
-	int i;
-	int j = 0;
-	
-	while (src[i])	
-	{
-		dst[j] = src[i];
-		j++;
-		i++;
-	}
-	*dst = ' ';
 }
