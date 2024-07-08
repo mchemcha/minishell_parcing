@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 19:21:52 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/06 20:07:20 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/07 19:43:05 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,86 +92,6 @@ int	pip_syntax(char *str)
 	return (1);
 }
 
-
-char	*space(char *str)
-{
-	char	s[100000];
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if ((str[i] == '>' && str[i + 1] == '>')
-			|| (str[i] == '<' && str[i + 1] == '<'))
-		{
-			s[j] = ' ';
-			j++;
-			s[j] = str[i];
-			j++;
-			i++;
-			s[j] = str[i];
-			j++;
-			s[j] = ' ';
-			j++;
-		}
-		else if (str[i] == '|' || str[i] == '>' || str[i] == '<')
-		{
-			s[j] = ' ';
-			j++;
-			s[j] = str[i];
-			j++;
-			s[j] = ' ';
-			j++;
-		}
-		else if(str[i] == '\"')
-		{
-			s[j] = ' ';
-			j++;
-			s[j] = str[i];
-			i++;
-			j++;
-			while(str[i] && (str[i] != '\"'))
-			{
-				s[j] = str[i];
-				j++;	
-				i++;
-			}
-			s[j] = str[i];
-			j++;
-			s[j] = ' ';
-			j++;
-		}
-		else if( str[i] == '\'')
-		{
-			s[j] = ' ';
-			j++;
-			s[j] = str[i];
-			i++;
-			j++;
-			while(str[i] && (str[i] != '\''))
-			{
-				s[j] = str[i];
-				j++;	
-				i++;
-			}
-			s[j] = str[i];
-			j++;
-			s[j] = ' ';
-			j++;
-		}
-		else
-		{
-			s[j] = str[i];
-			j++;
-		}
-		i++;
-	}
-	s[j] = '\0';
-	return (ft_strdup(s));
-}
-
 int	check_error(t_token *list)
 {
 	if (list->type == 2 || ft_lstlast(list)->type == 2
@@ -203,6 +123,7 @@ void parcing_check(char *read_line,t_env *env)
 		return;
 	betwen_quote(&read_line);
 	str = space(read_line);
+	// printf("--->space = |%s|<----", str);
 	tab = ft_split(str, ' ');
 	while (tab[i])
 	{
@@ -212,12 +133,11 @@ void parcing_check(char *read_line,t_env *env)
 	if(check_error(list) != 0)
 		return;
 	doubl_quotexpand(list,env);
-	print_stack(list);
 	expend_list(list,env);
 	singl_quotexpand(list);
 	singel_quote(list);
-	puts("------>\n");
-	print_stack(list);
+	// puts("------>\n");
+	// print_stack(list);
 	t_list *cmd_list = split_liked_pip(list);
 	puts("------>\n");
 	print_list_cmd(cmd_list);

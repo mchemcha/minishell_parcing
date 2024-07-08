@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 17:16:14 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/06 20:53:07 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:20:18 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,43 +36,19 @@ t_list	*ft_lstlast_list(t_list *lst)
 	return (p);
 }
 
-// void	ft_lstadd_back_list(t_list **lst, t_list *newlst)
-// {
-// 	t_list	*p;
+void	ft_lstadd_back_list(t_list **lst, t_list *newlst)
+{
+	t_list	*p;
 
-// 	if (lst == NULL || newlst == NULL)
-// 		return ;
-// 	if (*lst == NULL)
-// 		*lst = newlst;
-// 	else
-// 	{
-// 		p = ft_lstlast_list(*lst);
-// 		p -> next = newlst;
-// 	}
-// }
-
-void ft_lstadd_back_list(t_list **head, t_list *newlst) {
-    t_list *node;
-
-    if (newlst == NULL) {
-        return; 
-    }
-
-    
-    if (*head == NULL) {
-        *head = newlst;
-        newlst->next = NULL;
-    } 
-	else 
+	if (lst == NULL || newlst == NULL)
+		return ;
+	if (*lst == NULL)
+		*lst = newlst;
+	else
 	{
-        node = *head;
-        while (node->next != NULL) 
-		{
-            node = node->next;         
-        }
-        node->next = newlst;
-        newlst->next = NULL;
-    }
+		p = ft_lstlast_list(*lst);
+		p -> next = newlst;
+	}
 }
 
 void print_list_cmd(t_list *list)
@@ -112,26 +88,6 @@ int ft_lstsize(t_list *lst)
 	}
 	return (s);
 }
-int cont_word_list(t_token *list)
-{
-	int cont = 0;
-
-	while (list)
-	{
-		if (list->type == PIPE) //|| (list->type >= 3 && list->type >= 6)
-		{
-			list = list->next;
-			continue;
-		}
-
-		if (list->str)
-			cont += ft_strlen(list->str);
-
-		list = list->next;
-	}
-	return cont;
-}
-
 
 static int ft_arrylen(char **str) {
     int i = 0;
@@ -167,6 +123,35 @@ char **ft_arrydup(char **s1) {
     return str;
 }
 
+int open_file(char *str)
+{
+    int fd;
+
+    fd = open(str, O_RDWR,O_CREAT);
+    if (fd == -1) 
+    {
+        puts("EROR\n");
+        return 1;
+    }
+    return (fd);
+}
+
+// t_token *rederaction_handle(t_token *list)
+// {
+//     while (list)
+//     {
+//         if(list->type == REDR_OUT)
+//         {
+            
+//         }
+//     }
+// }
+// if(list->type == REDR_OUT)
+//             {
+//                 list = list->next;
+//                 outfile = open_file(list->str);
+//                 list = list->next; 
+//             }
 t_list *split_liked_pip(t_token *list)
 {
     t_list *list_cmd = NULL;
@@ -182,6 +167,12 @@ t_list *split_liked_pip(t_token *list)
         {
             cmd[i] = ft_strdup(list->str);
             i++;
+            if(list->type == REDR_OUT)
+            {
+                list = list->next;
+                outfile = open_file(list->str);
+                printf("==>%s = %d<==\n", list->str,outfile);
+            }
             list = list->next;                                              
         }
         cmd[i] = NULL;
@@ -190,6 +181,8 @@ t_list *split_liked_pip(t_token *list)
         if (!list)
 			break;
     	list = list->next;
+        close(outfile);
     }
     return list_cmd;
 }
+

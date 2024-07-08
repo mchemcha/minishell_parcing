@@ -6,7 +6,7 @@
 /*   By: mchemcha <mchemcha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 17:32:10 by mchemcha          #+#    #+#             */
-/*   Updated: 2024/07/05 17:12:33 by mchemcha         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:37:31 by mchemcha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,6 @@ void	remove_singl_quotes(char *str)
     }
     *dst = '\0';
 }
-
-// void doubl_quotexpand(t_token *list, t_env *env)
-// {
-// 	int i ;
-//     (void)env;
-
-//     while (list)
-//     {
-//         char *str = list->str;
-//         if (list->type == Doubl_QUOTE)
-//         {
-//             i = 0;
-
-//             if (str[i] == '\"')
-//             {
-//                 i++;
-//                 while (str[i] && str[i] != '\"')
-//                 {
-//                     str[i] *= (-1);
-//                     i++;
-//                 }
-//                 if (str[i] == '\"')
-//                 {
-//                     remove_double_quotes(str);
-//                 }
-//             }
-//         }
-//         list = list->next;
-//     }
-// }
 
 void doubl_quotexpand(t_token *list, t_env *env)
 {

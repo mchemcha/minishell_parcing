@@ -43,9 +43,9 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 3368.9741824981293,
-			"y": -1636.137984079769,
-			"lastActivityTimestamp": 1720202455685,
+			"x": 2800.2640172420693,
+			"y": -964.7725318091261,
+			"lastActivityTimestamp": 1720383232206,
 			"meta": {}
 		},
 		{
@@ -72,8 +72,8 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 779.861083984375,
-				"h": 522.9166259765625
+				"w": 779.1666259765625,
+				"h": 631.25
 			},
 			"insets": [
 				false,
@@ -116,9 +116,9 @@
 			"typeName": "instance_page_state"
 		},
 		{
-			"x": 827.5318599823393,
-			"y": 3750.5584552711753,
-			"z": 0.1,
+			"x": -1822.0196935116005,
+			"y": 1403.5745947974074,
+			"z": 0.5,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"
@@ -71588,6 +71588,106 @@
 			},
 			"parentId": "page:page",
 			"index": "b6c",
+			"typeName": "shape"
+		},
+		{
+			"x": 3295.7319949981293,
+			"y": 74.52790947491849,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:jKBCpK8HqjzHLMeV2serx",
+			"type": "draw",
+			"props": {
+				"segments": [
+					{
+						"type": "free",
+						"points": [
+							{
+								"x": 0,
+								"y": 0,
+								"z": 0.5
+							}
+						]
+					}
+				],
+				"color": "black",
+				"fill": "none",
+				"dash": "draw",
+				"size": "m",
+				"isComplete": true,
+				"isClosed": false,
+				"isPen": false,
+				"scale": 1
+			},
+			"parentId": "page:page",
+			"index": "b6d",
+			"typeName": "shape"
+		},
+		{
+			"x": 2083.5973607479286,
+			"y": -895.6861670630324,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:nxwAyaz2ZsM9Zw1P0A0zF",
+			"type": "draw",
+			"props": {
+				"segments": [
+					{
+						"type": "free",
+						"points": [
+							{
+								"x": 0,
+								"y": 0,
+								"z": 0.5
+							},
+							{
+								"x": 16.02,
+								"y": -0.33,
+								"z": 0.5
+							},
+							{
+								"x": 54.4,
+								"y": -0.33,
+								"z": 0.5
+							},
+							{
+								"x": 98.08,
+								"y": -0.33,
+								"z": 0.5
+							},
+							{
+								"x": 137.52,
+								"y": -0.33,
+								"z": 0.5
+							},
+							{
+								"x": 163.17,
+								"y": -0.33,
+								"z": 0.5
+							},
+							{
+								"x": 171.89,
+								"y": -1.65,
+								"z": 0.5
+							}
+						]
+					}
+				],
+				"color": "black",
+				"fill": "none",
+				"dash": "draw",
+				"size": "m",
+				"isComplete": true,
+				"isClosed": false,
+				"isPen": false,
+				"scale": 1
+			},
+			"parentId": "page:page",
+			"index": "b6e",
 			"typeName": "shape"
 		}
 	]
